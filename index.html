@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="google-site-verification" content="gpaQDbcVSCc5g13gvSnK7aURYs_m3GGDu5H_N1Gh-xE" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Nest</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Top-right icons -->
+    <div class="top-right">
+        <div class="dropdown">
+            <button class="icon-btn">⚙️</button> <!-- Settings Icon -->
+            <div class="dropdown-content">
+                <button onclick="changeUsername()">Change Username</button>
+                <button onclick="resetSettings()">Reset</button>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="icon-btn">👤</button> <!-- Profile Icon -->
+            <div class="dropdown-content">
+                <p id="user-email" class="email-display"></p> <!-- Email Display -->
+                <button onclick="logout()">Logout</button>
+                <button onclick="deleteAccount()">Delete Account</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="pomodoro.html" class="sidebar-item">Pomodoro Timer</a>
+            <a href="cornell.html" class="sidebar-item">Cornell Note-Taking Method</a>
+            <a href="eisenhower.html" class="sidebar-item">Eisenhower Matrix</a>
+            <a href="journal.html" class="sidebar-item">Self-Reflection Journal</a>
+            <a href="streak.html" class="sidebar-item">Study Streak Tracker</a>
+            <div class="sidebar-footer">
+                <h3>🚀 Coming Soon</h3>
+                <p>Flashcards, Study Groups & More!</p>
+            </div>
+            
+            
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="main-area">
+                <h1 class="main-title">Study Tracker </h1>
+                <div class="welcome-card">
+                    <h2 id="welcomeMessage">Welcome, !</h2>
+                    <p>Your journey to productive and balanced learning starts here.</p>
+                    <blockquote>
+                        "The future depends on what you do today." - Mahatma Gandhi
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentUser = localStorage.getItem("currentUser");
+
+            if (!currentUser) {
+                alert("You must log in first!");
+                window.location.href = "login.html";
+                return;
+            }
+
+            const userData = JSON.parse(localStorage.getItem(currentUser));
+
+            if (userData) {
+                document.getElementById("welcomeMessage").textContent = `Welcome, ${userData.username}!`;
+                document.getElementById("user-email").textContent = userData.email;
+            }
+        });
+
+        function changeUsername() {
+            const currentUser = localStorage.getItem("currentUser");
+
+            if (!currentUser) {
+                alert("You must log in first!");
+                return;
+            }
+
+            let newUsername = prompt("Enter your new username:");
+            if (newUsername) {
+                let userData = JSON.parse(localStorage.getItem(currentUser));
+                userData.username = newUsername;
+                localStorage.setItem(currentUser, JSON.stringify(userData));
+
+                document.getElementById("welcomeMessage").textContent = `Welcome, ${newUsername}!`;
+            }
+        }
+
+        function resetSettings() {
+            const currentUser = localStorage.getItem("currentUser");
+
+            if (!currentUser) {
+                alert("You must log in first!");
+                return;
+            }
+
+            let userData = JSON.parse(localStorage.getItem(currentUser));
+            userData.username = "User"; // Reset username to default
+            localStorage.setItem(currentUser, JSON.stringify(userData));
+
+            location.reload();
+        }
+
+        function logout() {
+            localStorage.removeItem("currentUser"); // Only remove session, keep user data
+            window.location.href = "login.html"; // Redirect to login page
+        }
+
+        function deleteAccount() {
+            const currentUser = localStorage.getItem("currentUser");
+
+            if (!currentUser) {
+                alert("No account to delete.");
+                return;
+            }
+
+            localStorage.removeItem(currentUser); // Remove user data
+            localStorage.removeItem("currentUser"); // Clear session
+            alert("Account deleted successfully.");
+            window.location.href = "signup.html"; // Redirect to signup
+        }
+    </script>
+
+</body>
+</html>

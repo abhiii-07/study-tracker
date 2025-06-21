@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eisenhower Matrix - Study Nest</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Hide saved tasks by default */
+        .saved-tasks-container {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        /* Checkbox hack to toggle visibility */
+        #toggleView:checked ~ .saved-tasks-container {
+            display: block;
+        }
+
+        .view-tasks-label, #saveTasks {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+            border: none;
+        }
+
+        .view-tasks-label:hover, #saveTasks:hover {
+            background-color: #0056b3;
+        }
+
+        /* Hide the actual checkbox */
+        #toggleView {
+            display: none;
+        }
+
+        /* Success message styling */
+        .success-message {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="index.html" class="sidebar-item">Home</a>
+            <a href="pomodoro.html" class="sidebar-item">Pomodoro Timer</a>
+            <a href="cornell.html" class="sidebar-item">Cornell Note-Taking</a>
+            <a href="eisenhower.html" class="sidebar-item">Eisenhower Matrix</a>
+            <a href="journal.html" class="sidebar-item">Self-Reflection Journal</a>
+            <a href="streak.html" class="sidebar-item">Study Streak Tracker</a>
+            <div class="sidebar-footer">
+                <h3>🚀 Coming Soon</h3>
+                <p>Flashcards, Study Groups & More!</p>
+            </div>
+        </div>
+
+        <div class="matrix-container">
+            <h1>Eisenhower Matrix</h1>
+            <p>Prioritize your tasks effectively.</p>
+
+            <!-- First Row: Urgent & Important | Not Urgent & Important -->
+            <div class="matrix-row">
+                <div class="matrix-card urgent-important">
+                    <h3>Urgent & Important</h3>
+                    <textarea id="urgentImportant" placeholder="Tasks to do immediately..."></textarea>
+                </div>
+                <div class="matrix-card not-urgent-important">
+                    <h3>Not Urgent & Important</h3>
+                    <textarea id="notUrgentImportant" placeholder="Tasks to schedule..."></textarea>
+                </div>
+            </div>
+
+            <!-- Second Row: Urgent & Not Important | Not Urgent & Not Important -->
+            <div class="matrix-row">
+                <div class="matrix-card urgent-not-important">
+                    <h3>Urgent & Not Important</h3>
+                    <textarea id="urgentNotImportant" placeholder="Tasks to delegate..."></textarea>
+                </div>
+                <div class="matrix-card not-urgent-not-important">
+                    <h3>Not Urgent & Not Important</h3>
+                    <textarea id="notUrgentNotImportant" placeholder="Tasks to eliminate..."></textarea>
+                </div>
+            </div>
+
+            <!-- Save & View Tasks -->
+            <button id="saveTasks">Save Tasks</button>
+            <p class="success-message" id="successMessage">Tasks saved successfully!</p>
+
+            <!-- Toggle Checkbox (Hidden) -->
+            <input type="checkbox" id="toggleView">
+
+            <!-- View Tasks Button -->
+            <label for="toggleView" class="view-tasks-label">View Saved Tasks</label>
+
+            <!-- Saved Tasks Section (Hidden by Default) -->
+            <div class="saved-tasks-container">
+                <h3>Saved Tasks</h3>
+                <ul id="savedTasksList"></ul>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="eisenhower.js"></script>
+
+</body>
+</html>

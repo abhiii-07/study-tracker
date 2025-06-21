@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="google-site-verification" content="gpaQDbcVSCc5g13gvSnK7aURYs_m3GGDu5H_N1Gh-xE" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyNest - Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .login-container {
+            background-color: #e6f2f2;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 350px;
+            text-align: center;
+        }
+        .login-container h1 {
+            color: #4a9f9f;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #4a9f9f;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #b0e0e6;
+            border-radius: 5px;
+            background-color: #f0ffff;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4a9f9f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #3a8f8f;
+        }
+        .signup-link {
+            margin-top: 15px;
+            color: #4a9f9f;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Study Tracker</h1>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <div class="signup-link">
+            Don't have an account? <a href="signup.html">Sign Up</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Retrieve stored user data
+            const storedData = localStorage.getItem(email);
+
+            if (storedData) {
+                const user = JSON.parse(storedData);
+                
+                if (password === user.password) {
+                    alert('Login successful!');
+                    localStorage.setItem('currentUser', email); // Store session
+
+                    // Check if profile is complete
+                    if (user.profileCompleted) {
+                        window.location.href = 'index.html'; // Redirect to home
+                    } else {
+                        window.location.href = 'profile-setup.html'; // Redirect to profile setup
+                    }
+                } else {
+                    alert('Invalid password');
+                }
+            } else {
+                alert('No account found. Please sign up.');
+            }
+        });
+    </script>
+</body>
+</html>

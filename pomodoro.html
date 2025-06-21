@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="index.html" class="sidebar-item">Home</a>
+            <a href="pomodoro.html" class="sidebar-item">Pomodoro Timer</a>
+            <a href="cornell.html" class="sidebar-item">Cornell Note-Taking</a>
+            <a href="eisenhower.html" class="sidebar-item">Eisenhower Matrix</a>
+            <a href="journal.html" class="sidebar-item">Self-Reflection Journal</a>
+            <a href="streak.html" class="sidebar-item">Study Streak Tracker</a>
+            <div class="sidebar-footer">
+                <h3>🚀 Coming Soon</h3>
+                <p>Flashcards, Study Groups & More!</p>
+            </div>
+        </div>
+
+        <!-- Main Pomodoro Timer -->
+        <div class="content">
+            <div class="pomodoro-card">
+                <h1>Pomodoro Timer</h1>
+                <p>Boost productivity with focused work sessions.</p>
+
+                <!-- Mode Selection -->
+                <div class="mode-buttons">
+                    <button class="mode-btn" onclick="setTimer(25)">Focus</button>
+                    <button class="mode-btn" onclick="setTimer(5)">Short Break</button>
+                    <button class="mode-btn" onclick="setTimer(15)">Long Break</button>
+                </div>
+
+                <!-- Timer Display -->
+                <div id="timer">25:00</div>
+
+                <!-- Controls -->
+                <div class="control-buttons">
+                    <button class="control-btn start" onclick="startTimer()">Start</button>
+                    <button class="control-btn pause" onclick="pauseTimer()">Pause</button>
+                    <button class="control-btn reset" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script> <!-- JS file for timer logic -->
+</body>
+</html>

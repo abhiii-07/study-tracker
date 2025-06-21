@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Streak Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="index.html" class="sidebar-item">Home</a>
+            <a href="pomodoro.html" class="sidebar-item">Pomodoro Timer</a>
+            <a href="cornell.html" class="sidebar-item">Cornell Note-Taking</a>
+            <a href="eisenhower.html" class="sidebar-item">Eisenhower Matrix</a>
+            <a href="journal.html" class="sidebar-item">Self-Reflection Journal</a>
+            <a href="streak.html" class="sidebar-item">Study Streak Tracker</a>
+            <div class="sidebar-footer">
+                <h3>🚀 Coming Soon</h3>
+                <p>Flashcards, Study Groups & More!</p>
+            </div>
+        </div>
+
+        <!-- Streak Tracker -->
+        <div class="streak-container">
+            <h1>📅 Study Streak Tracker</h1>
+            <p>Track your daily study habit and keep your streak going!</p>
+
+            <div class="streak-card">
+                <h2>🔥 Current Streak: <span id="streakCount">0</span> Days</h2>
+                <p>Last Studied: <span id="lastStudyDate">-</span></p>
+                <button id="markStudy">I Studied Today!</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const streakCount = document.getElementById("streakCount");
+            const lastStudyDate = document.getElementById("lastStudyDate");
+            const markStudyBtn = document.getElementById("markStudy");
+
+            // Load streak data from localStorage
+            let streakData = JSON.parse(localStorage.getItem("studyStreak")) || { streak: 0, lastDate: null };
+            
+            function updateUI() {
+                streakCount.textContent = streakData.streak;
+                lastStudyDate.textContent = streakData.lastDate || "-";
+            }
+
+            markStudyBtn.addEventListener("click", function() {
+                const today = new Date().toISOString().split("T")[0]; // Get today's date
+
+                if (streakData.lastDate === today) {
+                    alert("You've already marked your study session for today!");
+                    return;
+                }
+
+                // Check if the last study date was yesterday
+                const lastDate = new Date(streakData.lastDate);
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+
+                if (streakData.lastDate && lastDate.toDateString() === yesterday.toDateString()) {
+                    streakData.streak += 1; // Continue the streak
+                } else {
+                    streakData.streak = 1; // Reset streak
+                }
+
+                streakData.lastDate = today;
+                localStorage.setItem("studyStreak", JSON.stringify(streakData));
+
+                updateUI();
+                alert("Great job! Your streak is updated. 🔥");
+            });
+
+            updateUI(); // Load streak count on page load
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cornell Note-Taking</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Success message styling */
+        .success-message {
+            display: none;
+            color: white;
+            background-color: #28a745;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Saved notes container */
+        .saved-notes-container {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .saved-notes-container h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="index.html" class="sidebar-item">Home</a>
+            <a href="pomodoro.html" class="sidebar-item">Pomodoro Timer</a>
+            <a href="cornell.html" class="sidebar-item">Cornell Note-Taking</a>
+            <a href="eisenhower.html" class="sidebar-item">Eisenhower Matrix</a>
+            <a href="journal.html" class="sidebar-item">Self-Reflection Journal</a>
+            <a href="streak.html" class="sidebar-item">Study Streak Tracker</a>
+            <div class="sidebar-footer">
+                <h3>🚀 Coming Soon</h3>
+                <p>Flashcards, Study Groups & More!</p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="cornell-card">
+                <h2>Organize your notes efficiently using the Cornell Method.</h2>
+
+                <div class="cornell-layout">
+                    <div class="cornell-section">
+                        <h3>Cues</h3>
+                        <textarea id="cues" placeholder="Write keywords, questions, or main ideas here..."></textarea>
+                    </div>
+                    <div class="cornell-section">
+                        <h3>Notes</h3>
+                        <textarea id="notes" placeholder="Write your main notes here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="cornell-summary">
+                    <h3>Summary</h3>
+                    <textarea id="summary" placeholder="Summarize the main points here..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button id="saveNotes">Save Notes</button>
+                    <button id="viewNotes">View Saved Notes</button>
+                </div>
+
+                <!-- Success Message -->
+                <div id="successMessage" class="success-message">✅ Notes saved successfully!</div>
+
+                <!-- Saved Notes Section -->
+                <div id="savedNotesContainer" class="saved-notes-container">
+                    <h3>📄 Saved Notes</h3>
+                    <p><strong>Cues:</strong> <span id="savedCues"></span></p>
+                    <p><strong>Notes:</strong> <span id="savedNotesText"></span></p>
+                    <p><strong>Summary:</strong> <span id="savedSummary"></span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("saveNotes").addEventListener("click", function() {
+            const cues = document.getElementById("cues").value;
+            const notes = document.getElementById("notes").value;
+            const summary = document.getElementById("summary").value;
+
+            const savedData = {
+                cues: cues,
+                notes: notes,
+                summary: summary
+            };
+
+            localStorage.setItem("cornellNotes", JSON.stringify(savedData));
+
+            let successMessage = document.getElementById("successMessage");
+            successMessage.style.display = "block"; // Show success message
+
+            setTimeout(() => {
+                successMessage.style.display = "none"; // Hide after 3 seconds
+            }, 3000);
+        });
+
+        document.getElementById("viewNotes").addEventListener("click", function() {
+            const savedData = JSON.parse(localStorage.getItem("cornellNotes"));
+
+            if (savedData) {
+                document.getElementById("savedCues").textContent = savedData.cues;
+                document.getElementById("savedNotesText").textContent = savedData.notes;
+                document.getElementById("savedSummary").textContent = savedData.summary;
+
+                document.getElementById("savedNotesContainer").style.display = "block"; // Show saved notes
+            } else {
+                alert("No saved notes found!");
+            }
+        });
+
+        // Load saved notes on page load
+        window.onload = function() {
+            const savedData = JSON.parse(localStorage.getItem("cornellNotes"));
+            if (savedData) {
+                document.getElementById("cues").value = savedData.cues;
+                document.getElementById("notes").value = savedData.notes;
+                document.getElementById("summary").value = savedData.summary;
+            }
+        };
+    </script>
+
+</body>
+</html>

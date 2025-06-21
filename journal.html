@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Reflection Journal</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Hide saved journal by default */
+        .saved-journal-container {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        /* Checkbox hack to toggle visibility */
+        #toggleView:checked ~ .saved-journal-container {
+            display: block;
+        }
+
+        .view-journal-label, #saveJournal {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+            border: none;
+        }
+
+        .view-journal-label:hover, #saveJournal:hover {
+            background-color: #0056b3;
+        }
+
+        /* Hide the actual checkbox */
+        #toggleView {
+            display: none;
+        }
+
+        /* Success message styling */
+        .success-message {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="index.html" class="sidebar-item">Home</a>
+            <a href="pomodoro.html" class="sidebar-item">Pomodoro Timer</a>
+            <a href="cornell.html" class="sidebar-item">Cornell Note-Taking</a>
+            <a href="eisenhower.html" class="sidebar-item">Eisenhower Matrix</a>
+            <a href="journal.html" class="sidebar-item">Self-Reflection Journal</a>
+            <a href="streak.html" class="sidebar-item">Study Streak Tracker</a>
+            <div class="sidebar-footer">
+                <h3>🚀 Coming Soon</h3>
+                <p>Flashcards, Study Groups & More!</p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="journal-container">
+            <h1>Self-Reflection Journal</h1>
+            <p>Reflect on your learning and progress.</p>
+
+            <!-- Mood Tracker -->
+            <div class="mood-container">
+                <h3>How is your mood today?</h3>
+                <div class="star-rating">
+                    <span onclick="setMood(1)">★</span>
+                    <span onclick="setMood(2)">★</span>
+                    <span onclick="setMood(3)">★</span>
+                    <span onclick="setMood(4)">★</span>
+                    <span onclick="setMood(5)">★</span>
+                </div>
+                <p id="mood-emoji"></p>
+            </div>
+
+            <!-- Journal Cards in One Row -->
+            <div class="journal-row">
+                <div class="journal-card">
+                    <h3>What went well today?</h3>
+                    <textarea id="success" placeholder="Write about your achievements..."></textarea>
+                </div>
+                <div class="journal-card">
+                    <h3>What could be improved?</h3>
+                    <textarea id="improve" placeholder="Write about challenges or areas for growth..."></textarea>
+                </div>
+                <div class="journal-card">
+                    <h3>What will you do tomorrow?</h3>
+                    <textarea id="goals" placeholder="Set intentions for the next day..."></textarea>
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <button id="saveJournal">Save Journal</button>
+            <p class="success-message" id="successMessage">Journal entry saved successfully!</p>
+
+            <!-- Toggle Checkbox (Hidden) -->
+            <input type="checkbox" id="toggleView">
+
+            <!-- View Journal Button -->
+            <label for="toggleView" class="view-journal-label">View Saved Journal</label>
+
+            <!-- Saved Journal Section (Hidden by Default) -->
+            <div class="saved-journal-container">
+                <h3>Saved Journal Entries</h3>
+                <p><strong>Mood:</strong> <span id="savedMood">No mood recorded</span></p>
+                <p><strong>What went well:</strong> <span id="savedSuccess">No entry</span></p>
+                <p><strong>What could be improved:</strong> <span id="savedImprove">No entry</span></p>
+                <p><strong>What will you do tomorrow:</strong> <span id="savedGoals">No entry</span></p>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="journal.js"></script>
+
+</body>
+</html>

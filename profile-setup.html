@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study & Relax - Profile Setup</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .profile-container {
+            background-color: #e6f2f2;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 500px;
+            text-align: center;
+        }
+        .profile-container h1 {
+            color: #4a9f9f;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #4a9f9f;
+        }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #b0e0e6;
+            border-radius: 5px;
+            background-color: #f0ffff;
+        }
+        .input-group .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+        .input-group .checkbox-container input {
+            width: auto;
+            margin-right: 10px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4a9f9f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background-color: #3a8f8f;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Complete Your Profile</h1>
+        <form id="profileForm">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="input-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" min="13" max="120" required>
+            </div>
+            <div class="input-group">
+                <label>What is your primary goal for using this app?</label>
+                <div class="checkbox-container">
+                    <input type="radio" id="goal1" name="goal" value="academic">
+                    <label for="goal1">Academic Performance</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="radio" id="goal2" name="goal" value="productivity">
+                    <label for="goal2">Productivity Improvement</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="radio" id="goal3" name="goal" value="mental-health">
+                    <label for="goal3">Mental Health & Stress Management</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="radio" id="goal4" name="goal" value="skill-learning">
+                    <label for="goal4">Skill Learning & Personal Development</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="radio" id="goal5" name="goal" value="other">
+                    <label for="goal5">Other</label>
+                </div>
+            </div>
+            <button type="submit" class="btn">Complete Profile</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect profile information
+            const username = document.getElementById('username').value;
+            const age = document.getElementById('age').value;
+            const goal = document.querySelector('input[name="goal"]:checked')?.value;
+            
+            if (!goal) {
+                alert('Please select a goal');
+                return;
+            }
+            
+            // Store profile information in localStorage
+            localStorage.setItem('username', username);
+            localStorage.setItem('age', age);
+            localStorage.setItem('userGoal', goal);
+            
+            // Redirect to home page
+            window.location.href = 'index.html';
+        });
+
+        // Prefill username from email if available
+        document.addEventListener('DOMContentLoaded', function() {
+            const email = localStorage.getItem('userEmail');
+            if (email) {
+                const suggestedUsername = email.split('@')[0];
+                document.getElementById('username').value = suggestedUsername;
+            }
+        });
+    </script>
+</body>
+</html>
